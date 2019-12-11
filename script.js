@@ -18,7 +18,7 @@ function plantMines(){
 }
 function boardClear(){
      var i=0;
-    while(i<78){
+    while(i<79){
         $("#"+i).empty();
         i=i+1;
     }
@@ -84,5 +84,6 @@ function boardPopulate(){
             $("#"+i).append(mineTileCounter);
         }
         i=i+1;
+        mineTileCounter=0;
     }
 }
