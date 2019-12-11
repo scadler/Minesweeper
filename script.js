@@ -1,3 +1,4 @@
+//https://commons.wikimedia.org/wiki/File:Minesweeper_1.svg
 $("#gameStart").click(function(){
     boardClear();
     plantMines();
@@ -12,6 +13,7 @@ function plantMines(){
     var xyCoor = Number(xCoor+yCoor);
     console.log(xyCoor);
     $("#" + xyCoor).append(`<img class="bomb" id=${xyCoor} src="https://i.imgur.com/MpG5ARn.png"></img>`);
+    $(".bomb").hide();
     i = i+1;
     }
     boardPopulate();
@@ -81,7 +83,8 @@ function boardPopulate(){
                 mineTileCounter=mineTileCounter+1;
             }
             console.log(mineTileCounter+" mineTileCounte id= "+i);
-            $("#"+i).append(mineTileCounter);
+            $("#" + i).append(mineTileCounter);
+
         }
         i=i+1;
         mineTileCounter=0;
