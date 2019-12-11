@@ -14,6 +14,7 @@ function plantMines(){
     $("#" + xyCoor).append(`<img class="bomb" id=${xyCoor} src="https://i.imgur.com/MpG5ARn.png"></img>`);
     i = i+1;
     }
+    boardPopulate();
 }
 function boardClear(){
      var i=0;
@@ -22,13 +23,66 @@ function boardClear(){
         i=i+1;
     }
 }
-function boardPopulate(){
+function boardPopulate(){    
     var i=1;
-    while(i<78){
-        //here write code for each tile to check the number of bombs
-        //it and display the correct number
-        //later add the mechanic that hides all tile values and shows
-        //them when the corresponding tile is clicked
+    while(i<79){
+        if($("#" + i).contents().attr('class') !== "bomb"){
+            console.log(i);
+            var mineFind = i;
+            var mineTileCounter=0;
+            // I was having trouble compressing the following
+            //code into a function so I am temporarily
+            //not compressing it
+            mineFind = mineFind-11;
+            if($("#" + mineFind).contents().attr('class') === "bomb"){
+                console.log("bomb found at "+mineFind);
+                mineTileCounter=mineTileCounter+1;
+            }
+            mineFind = i;
+            mineFind = mineFind-10;
+            if($("#" + mineFind).contents().attr('class') === "bomb"){
+                console.log("bomb found at "+mineFind);
+                mineTileCounter=mineTileCounter+1;
+            }
+            mineFind = i;
+            mineFind = mineFind-9;
+            if($("#" + mineFind).contents().attr('class') === "bomb"){
+                console.log("bomb found at "+mineFind);
+                mineTileCounter=mineTileCounter+1;
+            }
+            mineFind = i;
+            mineFind = mineFind-1;
+            if($("#" + mineFind).contents().attr('class') === "bomb"){
+                console.log("bomb found at "+mineFind);
+                mineTileCounter=mineTileCounter+1;
+            }
+            mineFind = i;
+            mineFind = mineFind+1;
+            if($("#" + mineFind).contents().attr('class') === "bomb"){
+                console.log("bomb found at "+mineFind);
+                mineTileCounter=mineTileCounter+1;
+            }
+            mineFind = i;
+            mineFind = mineFind+9;
+            if($("#" + mineFind).contents().attr('class') === "bomb"){
+                console.log("bomb found at "+mineFind);
+                mineTileCounter=mineTileCounter+1;
+            }
+            mineFind = i;
+            mineFind = mineFind+10;
+            if($("#" + mineFind).contents().attr('class') === "bomb"){
+                console.log("bomb found at "+mineFind);
+                mineTileCounter=mineTileCounter+1;
+            }
+            mineFind = i;
+            mineFind = mineFind+11;
+            if($("#" + mineFind).contents().attr('class') === "bomb"){
+                console.log("bomb found at "+mineFind);
+                mineTileCounter=mineTileCounter+1;
+            }
+            console.log(mineTileCounter+" mineTileCounte id= "+i);
+            $("#"+i).append(mineTileCounter);
+        }
         i=i+1;
     }
 }
