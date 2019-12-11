@@ -13,6 +13,10 @@
     border-right:5px solid #949494;
     background-color:#BDBDBD;
 }
+.bomb {
+    width:40px;
+    height:40px;
+}
 #gameStart{
     background-color: #BDBDBD;
     height:40px;
