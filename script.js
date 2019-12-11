@@ -5,8 +5,10 @@ $("#gameStart").click(function(){
 function plantMines(){
     var i = 0;
     while(i<12){
-    var xCoor = Math.floor(Math.random()*70);
-    var yCoor = Math.floor(Math.random()*8)
+    var xCoor = (Math.floor(Math.random()*10)*7);
+    console.log(xCoor+" xCoor");
+    var yCoor = (Math.floor(Math.random()*7)+1);
+    console.log(yCoor+" yCoor");
     var xyCoor = Number(xCoor+yCoor);
     console.log(xyCoor);
     $("#" + xyCoor).append(`<img class="bomb" id=${xyCoor} src="https://i.imgur.com/MpG5ARn.png"></img>`);
