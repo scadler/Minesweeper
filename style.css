@@ -1,0 +1,15 @@
+#board {
+	width:400px;
+	height:400px;
+	border:2px solid #000000;
+}
+.square {
+	width:40px;
+	height:40px;
+	float:left;
+    border-top:5px solid #FBFAF9;
+    border-left:5px solid #FBFAF9;
+    border-bottom:5px solid #949494;
+    border-right:5px solid #949494;
+    background-color:#BDBDBD;
+}
