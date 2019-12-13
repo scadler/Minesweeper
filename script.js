@@ -48,10 +48,10 @@ function tileImagePicker(mineTileCounter, i){
 }
 function plantMines(){
     var i = 0;
-    while(i<12){
-    var xCoor = (Math.floor(Math.random()*10)*7);
+    while(i<10){
+    var xCoor = (Math.floor((Math.random()*7)+1)*10);
     console.log(xCoor+" xCoor");
-    var yCoor = (Math.floor(Math.random()*7)+1);
+    var yCoor = (Math.floor((Math.random()*8)+1));
     console.log(yCoor+" yCoor");
     var xyCoor = Number(xCoor+yCoor);
     console.log(xyCoor);
@@ -73,7 +73,6 @@ function boardPopulate(){
     var i=1;
     while(i<79){
         if($("#" + i).contents().attr('class') !== "bomb"){
-            console.log(i);
             var mineFind = i;
             var mineTileCounter=0;
             // I was having trouble compressing the following
@@ -81,52 +80,52 @@ function boardPopulate(){
             //not compressing it
             mineFind = mineFind-11;
             if($("#" + mineFind).contents().attr('class') === "bomb"){
-                console.log("bomb found at "+mineFind);
+                //console.log("bomb found at "+mineFind);
                 mineTileCounter=mineTileCounter+1;
             }
             mineFind = i;
             mineFind = mineFind-10;
             if($("#" + mineFind).contents().attr('class') === "bomb"){
-                console.log("bomb found at "+mineFind);
+                //console.log("bomb found at "+mineFind);
                 mineTileCounter=mineTileCounter+1;
             }
             mineFind = i;
             mineFind = mineFind-9;
             if($("#" + mineFind).contents().attr('class') === "bomb"){
-                console.log("bomb found at "+mineFind);
+                //console.log("bomb found at "+mineFind);
                 mineTileCounter=mineTileCounter+1;
             }
             mineFind = i;
             mineFind = mineFind-1;
             if($("#" + mineFind).contents().attr('class') === "bomb"){
-                console.log("bomb found at "+mineFind);
+                //console.log("bomb found at "+mineFind);
                 mineTileCounter=mineTileCounter+1;
             }
             mineFind = i;
             mineFind = mineFind+1;
             if($("#" + mineFind).contents().attr('class') === "bomb"){
-                console.log("bomb found at "+mineFind);
+                //console.log("bomb found at "+mineFind);
                 mineTileCounter=mineTileCounter+1;
             }
             mineFind = i;
             mineFind = mineFind+9;
             if($("#" + mineFind).contents().attr('class') === "bomb"){
-                console.log("bomb found at "+mineFind);
+                //console.log("bomb found at "+mineFind);
                 mineTileCounter=mineTileCounter+1;
             }
             mineFind = i;
             mineFind = mineFind+10;
             if($("#" + mineFind).contents().attr('class') === "bomb"){
-                console.log("bomb found at "+mineFind);
+                //console.log("bomb found at "+mineFind);
                 mineTileCounter=mineTileCounter+1;
             }
             mineFind = i;
             mineFind = mineFind+11;
             if($("#" + mineFind).contents().attr('class') === "bomb"){
-                console.log("bomb found at "+mineFind);
+                //console.log("bomb found at "+mineFind);
                 mineTileCounter=mineTileCounter+1;
             }
-            console.log(mineTileCounter+" mineTileCounte id= "+i);
+            //console.log(mineTileCounter+" mineTileCounte id= "+i);
             tileImagePicker(mineTileCounter, i);
         }
         i=i+1;
