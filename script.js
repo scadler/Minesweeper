@@ -1,19 +1,69 @@
+var minesweeperObject = {
+    gameInProgress: false,
+    gameStarted: false,
+    gameEnded: false,
+
+    //make an array of all mine positions here
+};
+// rearrange the way the board is set so that after the user
+//clicks it generates, this will ensure that they always click 
+//on a clear spot
 $("#gameStart").click(function(){
+    minesweeperObject.gameInProgress = false;
+    minesweeperObject.gameStarted = true;
+    minesweeperObject.gameEnded = false;
     boardClear();
-    plantMines();
+    // plantMines();
 });
 $(".square").click(function(){
+    if(minesweeperObject.gameStarted === true && minesweeperObject.gameInProgress === false && minesweeperObject.gameEnded === false){
+        minesweeperObject.gameInProgress = true;
+        minesweeperObject.gameStarted = true;
+        var parentDivId = $(this).attr('id');
+        $("#"+parentDivId).append(`<img class="numberTile 0" id="tile${parentDivId}" src="https://upload.wikimedia.org/wikipedia/commons/8/80/Minesweeper_0.svg"></img>`)
+
+        plantMines(parentDivId);
+    }
+    if(minesweeperObject.gameInProgress === true){
   //var thisId = $(this).contents().attr('id');
   var parentDivId = $(this).attr('id');
-    if($(this).contents().attr('class') !== "bomb"){ 
-        $("#"+parentDivId).css({"height": "50", "width": "50", "border":"0px"});
-        $("#"+$(this).contents().attr('id')).show();
+  if($(this).contents().attr('id') === "tile0"){
+    var a = parentDivId;
+    a = a-10
+    if($("#"+a).contents().attr('id') === "tile0"){
+        $("#"+a).css({"height": "50", "width": "50", "border":"0px"});
     }
-    if($(this).contents().attr('class') === "bomb"){
-        $(".bomb").show();
-        $("#"+$(this)).css({"height": "40", "width": "40", "border-top":"5px solid #FBFAF9" , "border-left":"5px solid #FBFAF9", "border-bottom":"5px solid #949494", "border-right":"5px solid #949494"})
+    a = parentDivId;
+    a = a-1
+    if($("#"+a).contents().attr('id') === "tile0"){
+        $("#"+a).css({"height": "50", "width": "50", "border":"0px"});
     }
-
+    a = parentDivId;
+    a = a+1
+    if($("#"+a).contents().attr('id') === "tile0"){
+        $("#"+a).css({"height": "50", "width": "50", "border":"0px"});
+    }
+    a = parentDivId;
+    a = a+10
+    if($("#"+a).contents().attr('id') === "tile0"){
+        $("#"+a).css({"height": "50", "width": "50", "border":"0px"});
+    }
+    a = parentDivId;
+  }
+  else{
+        if($(this).contents().attr('class') !== "bomb"){ 
+            $("#"+parentDivId).css({"height": "50", "width": "50", "border":"0px"});
+            $("#"+$(this).contents().attr('id')).show();
+        }
+        if($(this).contents().attr('class') === "bomb"){
+            minesweeperObject.gameInProgress = false;
+            minesweeperObject.gameEnded = true;
+            $(".bomb").parent().css({"height": "40", "width": "40", "border-top":"5px solid #FBFAF9" , "border-left":"5px solid #FBFAF9", "border-bottom":"5px solid #949494", "border-right":"5px solid #949494"})
+            $(".bomb").show();
+            
+        }
+    }
+}
 });
 function tileImagePicker(mineTileCounter, i){
     if(mineTileCounter===0){
@@ -44,19 +94,27 @@ function tileImagePicker(mineTileCounter, i){
     $("#"+i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Minesweeper_8.svg"></img>`);
     $("#"+i).css({"height": "50", "width": "50", "border":"0px"});
     }
-    $("#"+i).contents().hide();
+    //$("#"+i).contents().hide();
 }
-function plantMines(){
+function plantMines(parentDivId){
+    //add a way to ensure bombs do not spawn on top of eachother using an object
     var i = 0;
     while(i<10){
     var xCoor = (Math.floor((Math.random()*7)+1)*10);
-    console.log(xCoor+" xCoor");
     var yCoor = (Math.floor((Math.random()*8)+1));
-    console.log(yCoor+" yCoor");
     var xyCoor = Number(xCoor+yCoor);
-    console.log(xyCoor);
+    if(xyCoor === parentDivId || parentDivId-11 || parentDivId-10 || parentDivId-9 || parentDivId-1 || parentDivId+1 || parentDivId+9 || parentDivId+10 || parentDivId+11){
+        i=i-1
+    }
+    else if($("#"+xyCoor).contents().attr('class') === "mine"){
+        $("#"+xyCoor).empty();
+        $("#" + xyCoor).append(`<img class="bomb" id=${xyCoor} src="https://i.imgur.com/MpG5ARn.png"></img>`);
+        i=i-1;
+    }
+    else{
     $("#" + xyCoor).append(`<img class="bomb" id=${xyCoor} src="https://i.imgur.com/MpG5ARn.png"></img>`);
-    $(".bomb").hide();
+    //$(".bomb").hide();
+    }
     i = i+1;
     }
     boardPopulate();
