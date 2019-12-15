@@ -130,7 +130,7 @@ function tileImagePicker(mineTileCounter, i) {
 
 function plantMines() {
     var i = 0;
-    while (i < 10) {
+    while (i < 14) {
         var xCoor = (Math.floor((Math.random() * 7) + 1) * 10);
         var yCoor = (Math.floor((Math.random() * 8) + 1));
         var xyCoor = Number(xCoor + yCoor);
