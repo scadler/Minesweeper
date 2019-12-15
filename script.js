@@ -51,13 +51,15 @@ $(".square").click(function() {
                 } else if ($(this).contents().attr('class') === "bomb") {
                     minesweeperObject.gameInProgress = false;
                     minesweeperObject.gameEnded = true;
-                    $(".bomb").parent().css({
-                        "height": "40",
-                        "width": "40",
-                        "border-top": "5px solid #FBFAF9",
-                        "border-left": "5px solid #FBFAF9",
-                        "border-bottom": "5px solid #949494",
-                        "border-right": "5px solid #949494"
+                        $(".bomb").parent().css({
+                            "height": "50",
+                        "width": "50",
+                        "border": "0px"
+                        });
+                        $(".bomb").css({
+                            "height": "47",
+                            "width": "47",
+                            "border": "1.5px solid #757575"
                     });
                     $(".bomb").show();
                 }
