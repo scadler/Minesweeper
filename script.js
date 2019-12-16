@@ -267,12 +267,17 @@ function blankChain(thisId){
     reveal(thisId)
 }
 function reveal(thisId){
-    $("#s"+thisId).contents().show();
+    if($("#s"+thisId).contents().length > 1){
+        //this line stops code from runnng if flag present
+    } else {
+        $("#s"+thisId).contents().show();
     $("#s"+thisId).css({
         "height": "50",
         "width": "50",
         "border": "0px"
     });
+    }
+    
 }
 function mineDuplicateDelete(){
     var i = 1;
