@@ -143,7 +143,7 @@ function tileImagePicker(mineTileCounter, i) {
 
 function plantMines() {
     var i = 0;
-    while (i < 14) {
+    while (i < 15) {
         var xCoor = (Math.floor((Math.random() * 7) + 1) * 10);
         var yCoor = (Math.floor((Math.random() * 8) + 1));
         var xyCoor = Number(xCoor + yCoor);
@@ -163,7 +163,7 @@ function plantMines() {
 
 function boardClear() {
     var i = 0;
-    while (i < 80) {
+    while (i < 90) {
         $("#s" + i).empty();
         i = i + 1;
         $("#s" + i).css({
@@ -179,7 +179,7 @@ function boardClear() {
 
 function boardPopulate() {
     var i = 1;
-    while (i < 80) {
+    while (i < 90) {
         if ($("#s" + i).contents().attr('class') !== "bomb") {
             var mineFind = i;
             var mineTileCounter = 0;
@@ -248,7 +248,6 @@ function boardPopulate() {
 }
 function blankChain(thisId){
     thisId = thisId.substring(1)
-    var thisIdSub = thisId
     thisId = thisId-11
     reveal(thisId)
     thisId = thisId+10
@@ -281,7 +280,7 @@ function reveal(thisId){
 }
 function mineDuplicateDelete(){
     var i = 1;
-    while(i < 80){
+    while(i < 90){
         if ($("#s"+i).contents().attr('class') === "bomb") {
             $("#s" + i).empty();
             $("#s" + i).append(`<img class="bomb" id=${i} src="https://i.imgur.com/MpG5ARn.png"></img>`);
