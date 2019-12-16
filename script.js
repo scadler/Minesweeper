@@ -1,3 +1,6 @@
+// at bottom of file there is a minesFound object, use it
+// along with a flag counter to show the user
+// the total number of mines-total flags
 var minesweeperObject = {
     gameInProgress: false,
     gameStarted: false,
@@ -6,6 +9,7 @@ var minesweeperObject = {
     bombButtonClicked: false,
     foundBlank: false,
     blankArray: [],
+    minesFound: 0,
 };
 $("#gameStart").click(function() {
     minesweeperObject.gameInProgress = false;
@@ -13,6 +17,7 @@ $("#gameStart").click(function() {
     minesweeperObject.gameEnded = false;
     minesweeperObject.foundBlank = false;
     minesweeperObject.blankArray = [];
+    minesweeperObject.minesFound = 0,
     boardClear();
     plantMines();
 
@@ -41,6 +46,10 @@ $(".square").click(function() {
         } else if (minesweeperObject.gameInProgress === true) {
             var parentDivId = $(this).attr('id');
             if ($(this).contents().hasClass("flag") === false) {
+                if ($(this).contents().hasClass("0") === true){
+                    thisId = $(this).attr('id');
+                    blankChain(thisId)
+                }
                 if ($(this).contents().attr('class') !== "bomb") {
                     $("#" + parentDivId).css({
                         "height": "50",
@@ -100,7 +109,9 @@ function tileImagePicker(mineTileCounter, i) {
     if (mineTileCounter === 0) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/8/80/Minesweeper_0.svg"></img>`);
         if (minesweeperObject.bombButtonClicked === true) {
+            if(i !== "10" && i !== "20" && i !== "30" && i !== "40" && i !== "50" && i !== "60" && i !== "70"){
             minesweeperObject.blankArray.push("#s" + i);
+            }
         }
         $("#s" + i).contents().hide();
     } else if (mineTileCounter === 1) {
@@ -146,12 +157,13 @@ function plantMines() {
         }
         i = i + 1;
     }
+    mineDuplicateDelete()
     boardPopulate();
 }
 
 function boardClear() {
     var i = 0;
-    while (i < 79) {
+    while (i < 80) {
         $("#s" + i).empty();
         i = i + 1;
         $("#s" + i).css({
@@ -167,7 +179,7 @@ function boardClear() {
 
 function boardPopulate() {
     var i = 1;
-    while (i < 79) {
+    while (i < 80) {
         if ($("#s" + i).contents().attr('class') !== "bomb") {
             var mineFind = i;
             var mineTileCounter = 0;
@@ -222,7 +234,7 @@ function boardPopulate() {
             var blankArrayLength = minesweeperObject.blankArray.length
             var arrayIndex = Math.floor(Math.random() * blankArrayLength)
             var arrayOutput = minesweeperObject.blankArray[arrayIndex]
-            if (arrayOutput !== "#s9" && arrayOutput !== "#s19" && arrayOutput !== "#s29" && arrayOutput !== "#s39" && arrayOutput !== "#s49" && arrayOutput !== "#s59" && arrayOutput !== "#s69" && arrayOutput !== "#s79") {
+            if (arrayOutput !== "#s10" && arrayOutput !== "#s20" && arrayOutput !== "#s30" && arrayOutput !== "#s40" && arrayOutput !== "#s50" && arrayOutput !== "#s60" && arrayOutput !== "#s70" && arrayOutput !== "#s80") {
                 $(arrayOutput).contents().show();
                 $(arrayOutput).css({
                     "height": "50",
@@ -233,4 +245,45 @@ function boardPopulate() {
             }
         }
     }
+}
+function blankChain(thisId){
+    thisId = thisId.substring(1)
+    var thisIdSub = thisId
+    thisId = thisId-11
+    reveal(thisId)
+    thisId = thisId+10
+    reveal(thisId)
+    thisId = thisId+10
+    reveal(thisId)
+    thisId = thisId+1
+    reveal(thisId)
+    thisId = thisId+1
+    reveal(thisId)
+    thisId = thisId-10
+    reveal(thisId)
+    thisId = thisId-10
+    reveal(thisId)
+    thisId = thisId-1
+    reveal(thisId)
+}
+function reveal(thisId){
+    $("#s"+thisId).contents().show();
+    $("#s"+thisId).css({
+        "height": "50",
+        "width": "50",
+        "border": "0px"
+    });
+}
+function mineDuplicateDelete(){
+    var i = 1;
+    while(i < 80){
+        if ($("#s"+i).contents().attr('class') === "bomb") {
+            $("#s" + i).empty();
+            $("#s" + i).append(`<img class="bomb" id=${i} src="https://i.imgur.com/MpG5ARn.png"></img>`);
+            $(".bomb").hide();
+            minesweeperObject.minesFound = minesweeperObject.minesFound+1
+        }
+        i = i+1;
+    }  
+    console.log(minesweeperObject.minesFound+" mines found")
 }
