@@ -1,6 +1,3 @@
-// at bottom of file there is a minesFound object, use it
-// along with a flag counter to show the user
-// the total number of mines-total flags
 var minesweeperObject = {
     gameInProgress: false,
     gameStarted: false,
@@ -27,6 +24,7 @@ $(".square").click(function() {
     if (minesweeperObject.gameStarted === true && minesweeperObject.gameEnded === false) {
         minesweeperObject.gameInProgress = true;
         if ($(this).contents().hasClass("flag") === true) {
+            flagCounterUpdateSubtract()
             $("#f" + parentDivId).remove();
             $("#" + parentDivId).css({
                 "height": "40",
@@ -37,6 +35,7 @@ $(".square").click(function() {
                 "border-right": "5px solid #949494"
             })
         } else if (minesweeperObject.flagButtonClicked === true && $(this).contents().hasClass("flag") === false) {
+            flagCounterUpdateAdd()
             $("#" + parentDivId).css({
                 "height": "50",
                 "width": "50",
@@ -289,5 +288,63 @@ function mineDuplicateDelete(){
         }
         i = i+1;
     }  
-    console.log(minesweeperObject.minesFound+" mines found")
+    if(minesweeperObject.minesFound > 9){
+        minesweeperObject.minesFound = "0"+minesweeperObject.minesFound
+    }
+    else{
+        minesweeperObject.minesFound = "00"+minesweeperObject.minesFound
+    }
+    $("#flagCounter").text(minesweeperObject.minesFound);
+}
+
+
+
+
+
+function flagCounterUpdateAdd(){
+    var flagCounterVal = Number($("#flagCounter").text());
+            flagCounterVal = flagCounterVal -1;
+            if(flagCounterVal < 100 && flagCounterVal > 9){
+                flagCounterVal = "0"+flagCounterVal
+                $("#flagCounter").text(flagCounterVal);
+            }
+            else if(flagCounterVal < 10 && flagCounterVal > 0){
+                flagCounterVal = "00"+flagCounterVal
+                $("#flagCounter").text(flagCounterVal);
+            }
+            else if(flagCounterVal === 0){
+                $("#flagCounter").text("000");
+            }
+            else if(flagCounterVal > -10 && flagCounterVal < 1 ){
+                flagCounterVal = flagCounterVal*(-1);
+                flagCounterVal = "-0"+flagCounterVal
+                $("#flagCounter").text(flagCounterVal);
+            }
+            else if(flagCounterVal > -100 && flagCounterVal < -9){
+                $("#flagCounter").text(flagCounterVal);
+            }
+}
+function flagCounterUpdateSubtract(){
+    var flagCounterVal = Number($("#flagCounter").text());
+            flagCounterVal = flagCounterVal +1;
+            if(flagCounterVal < 100 && flagCounterVal > 9){
+                flagCounterVal = "0"+flagCounterVal
+                $("#flagCounter").text(flagCounterVal);
+            }
+            else if(flagCounterVal < 10 && flagCounterVal > 0){
+                flagCounterVal = "00"+flagCounterVal
+                $("#flagCounter").text(flagCounterVal);
+            }
+            else if(flagCounterVal === 0){
+                $("#flagCounter").text("000");
+            }
+            else if(flagCounterVal > -10 && flagCounterVal < 1 ){
+                flagCounterVal = flagCounterVal*(-1);
+                flagCounterVal = "-0"+flagCounterVal
+                $("#flagCounter").text(flagCounterVal);
+            }
+            else if(flagCounterVal > -100 && flagCounterVal < -9){
+                $("#flagCounter").text(flagCounterVal);
+            }
+            
 }
