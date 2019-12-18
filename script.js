@@ -112,45 +112,52 @@ function tileImagePicker(mineTileCounter, i) {
                 minesweeperObject.blankArray.push("#s" + i);
             }
         }
-        $("#s" + i).contents().hide();
+        //$("#s" + i).contents().hide();
     } else if (mineTileCounter === 1) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/c/ca/Minesweeper_1.svg"></img>`);
-        $("#s" + i).contents().hide();
+        //$("#s" + i).contents().hide();
     } else if (mineTileCounter === 2) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/4/44/Minesweeper_2.svg"></img>`);
-        $("#s" + i).contents().hide();
+        //$("#s" + i).contents().hide();
     } else if (mineTileCounter === 3) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/0/08/Minesweeper_3.svg"></img>`);
-        $("#s" + i).contents().hide();
+       // $("#s" + i).contents().hide();
     } else if (mineTileCounter === 4) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Minesweeper_4.svg"></img>`);
-        $("#s" + i).contents().hide();
+        //$("#s" + i).contents().hide();
     } else if (mineTileCounter === 5) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/4/46/Minesweeper_5.svg"></img>`);
-        $("#s" + i).contents().hide();
+        //$("#s" + i).contents().hide();
     } else if (mineTileCounter === 6) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Minesweeper_6.svg"></img>`);
-        $("#s" + i).contents().hide();
+        //$("#s" + i).contents().hide();
     } else if (mineTileCounter === 7) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/5/56/Minesweeper_7.svg"></img>`);
-        $("#s" + i).contents().hide();
+        //$("#s" + i).contents().hide();
     } else if (mineTileCounter === 8) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Minesweeper_8.svg"></img>`);
-        $("#s" + i).contents().hide();
+        //$("#s" + i).contents().hide();
     };
 }
 
 function plantMines() {
     var i = 0;
-    while (i < 20) {
-        var xCoor = (Math.floor((Math.random() * 10)) * 10);
-        var yCoor = (Math.floor((Math.random() * 10)));
-        var xyCoor = Number(xCoor + yCoor);
+    while (i < 40) {
+        var xCoor = (Math.floor((Math.random() * 16)+1));
+        if(xCoor < 10){
+            xCoor = "0"+xCoor;
+        }
+        var yCoor = (Math.floor((Math.random() * 16)+1));
+        if(yCoor < 10){
+            yCoor = "0"+yCoor;
+        }
+        var xyCoor = xCoor.toString() + yCoor.toString();
+        console.log(xyCoor)
         if ($("#s" + xyCoor).contents().attr('class') === "bomb") {
             i = i - 1;
         } else {
             $("#s" + xyCoor).append(`<img class="bomb" id=${xyCoor} src="https://i.imgur.com/MpG5ARn.png"></img>`);
-            $(".bomb").hide();
+            //$(".bomb").hide();
         }
         i = i + 1;
     }
@@ -159,11 +166,29 @@ function plantMines() {
 }
 
 function boardClear() {
-    var i = -1;
-    while (i < 100) {
-        $("#s" + i).empty();
-        i = i + 1;
-        $("#s" + i).css({
+    var i = 1;
+    while (i < 17) {
+        var a = 0
+        while(a < 17){
+            if(a < 10){
+                var b = "0"+a;
+            }
+            else{
+                var b = a
+            }
+            b = b.toString();
+            if(i < 10){
+                var c = "0"+i
+            }
+            else{
+                var c = i
+            }
+            c = c.toString();
+            a = a+1
+            var squareId = c+b;
+            console.log(squareId)
+             $("#s"+squareId).empty();
+            $("#s"+squareId).css({
             "height": "40",
             "width": "40",
             "border-top": "5px solid #FBFAF9",
@@ -171,6 +196,8 @@ function boardClear() {
             "border-bottom": "5px solid #949494",
             "border-right": "5px solid #949494"
         })
+        }
+        i = i + 1;
     }
 }
 
