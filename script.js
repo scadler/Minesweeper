@@ -15,7 +15,7 @@ $("#gameStart").click(function() {
     minesweeperObject.foundBlank = false;
     minesweeperObject.blankArray = [];
     minesweeperObject.minesFound = 0,
-        boardClear();
+    boardClear();
     plantMines();
 
 });
@@ -34,7 +34,7 @@ $(".square").click(function() {
                 "border-bottom": "5px solid #949494",
                 "border-right": "5px solid #949494"
             })
-        } else if (minesweeperObject.flagButtonClicked === true && $(this).contents().hasClass("flag") === false) {
+        } else if (minesweeperObject.flagButtonClicked === true && $(this).contents().hasClass("flag") === false && $(this).contents().is(":hidden") === true) {
             flagCounterUpdateAdd()
             $("#" + parentDivId).css({
                 "height": "50",
