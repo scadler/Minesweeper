@@ -34,7 +34,7 @@ $(".square").click(function() {
                 "border-bottom": "5px solid #949494",
                 "border-right": "5px solid #949494"
             })
-        } else if (minesweeperObject.flagButtonClicked === true && $(this).contents().hasClass("flag") === false) {
+        } else if (minesweeperObject.flagButtonClicked === true && $(this).contents().hasClass("flag") === false && $(this).contents().hasClass("numberTile") === false) {
             flagCounterUpdateAdd()
             $("#" + parentDivId).css({
                 "height": "50",
@@ -44,7 +44,7 @@ $(".square").click(function() {
             $("#" + parentDivId).append(`<img class="flag" id="f${parentDivId}" src="https://i.imgur.com/v0YAYw9.jpg"></img>`);
         } else if (minesweeperObject.gameInProgress === true) {
             var parentDivId = $(this).attr('id');
-            if ($(this).contents().hasClass("flag") === false) {
+            if ($(this).contents().hasClass("flag") === false && minesweeperObject.flagButtonClicked === false) {
                 if ($(this).contents().hasClass("0") === true){
                     thisId = $(this).attr('id');
                     blankChain(thisId)
@@ -112,31 +112,31 @@ function tileImagePicker(mineTileCounter, i) {
             minesweeperObject.blankArray.push("#s" + i);
             }
         }
-        $("#s" + i).contents().hide();
+        //$("#s" + i).contents().hide();
     } else if (mineTileCounter === 1) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/c/ca/Minesweeper_1.svg"></img>`);
-        $("#s" + i).contents().hide();
+        //$("#s" + i).contents().hide();
     } else if (mineTileCounter === 2) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/4/44/Minesweeper_2.svg"></img>`);
-        $("#s" + i).contents().hide();
+        //$("#s" + i).contents().hide();
     } else if (mineTileCounter === 3) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/0/08/Minesweeper_3.svg"></img>`);
-        $("#s" + i).contents().hide();
+        //$("#s" + i).contents().hide();
     } else if (mineTileCounter === 4) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Minesweeper_4.svg"></img>`);
-        $("#s" + i).contents().hide();
+        //$("#s" + i).contents().hide();
     } else if (mineTileCounter === 5) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/4/46/Minesweeper_5.svg"></img>`);
-        $("#s" + i).contents().hide();
+        //$("#s" + i).contents().hide();
     } else if (mineTileCounter === 6) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Minesweeper_6.svg"></img>`);
-        $("#s" + i).contents().hide();
+        //$("#s" + i).contents().hide();
     } else if (mineTileCounter === 7) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/5/56/Minesweeper_7.svg"></img>`);
-        $("#s" + i).contents().hide();
+        //$("#s" + i).contents().hide();
     } else if (mineTileCounter === 8) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Minesweeper_8.svg"></img>`);
-        $("#s" + i).contents().hide();
+        //$("#s" + i).contents().hide();
     };
 }
 
@@ -146,9 +146,7 @@ function plantMines() {
         var xCoor = (Math.floor((Math.random() * 7) + 1) * 10);
         var yCoor = (Math.floor((Math.random() * 8) + 1));
         var xyCoor = Number(xCoor + yCoor);
-        if ($("#s" + xyCoor).contents().attr('class') === "mine") {
-            $("#s" + xyCoor).parent().empty();
-            $("#s" + xyCoor).append(`<img class="bomb" id=${xyCoor} src="https://i.imgur.com/MpG5ARn.png"></img>`);
+        if ($("#s" + xyCoor).contents().attr('class') === "bomb") {
             i = i - 1;
         } else {
             $("#s" + xyCoor).append(`<img class="bomb" id=${xyCoor} src="https://i.imgur.com/MpG5ARn.png"></img>`);
@@ -314,6 +312,7 @@ function flagCounterUpdateAdd(){
             }
             else if(flagCounterVal === 0){
                 $("#flagCounter").text("000");
+                isMinefieldCleared()
             }
             else if(flagCounterVal > -10 && flagCounterVal < 1 ){
                 flagCounterVal = flagCounterVal*(-1);
@@ -337,6 +336,7 @@ function flagCounterUpdateSubtract(){
             }
             else if(flagCounterVal === 0){
                 $("#flagCounter").text("000");
+                isMinefieldCleared()
             }
             else if(flagCounterVal > -10 && flagCounterVal < 1 ){
                 flagCounterVal = flagCounterVal*(-1);
@@ -347,4 +347,18 @@ function flagCounterUpdateSubtract(){
                 $("#flagCounter").text(flagCounterVal);
             }
             
+}
+function isMinefieldCleared(){
+    var flaggedMines = 0
+        var i = 0
+        while(i < 90){
+            i = i+1;
+            if($("#s"+i).contents().length === 2){
+                flaggedMines = flaggedMines+1;
+                if(flaggedMines === (minesweeperObject.minesFound-1)){
+                    console.log("won")
+                    break;
+                }
+            }
+        }
 }
