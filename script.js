@@ -15,7 +15,7 @@ $("#gameStart").click(function() {
     minesweeperObject.foundBlank = false;
     minesweeperObject.blankArray = [];
     minesweeperObject.minesFound = 0,
-    boardClear();
+        boardClear();
     plantMines();
 
 });
@@ -45,7 +45,7 @@ $(".square").click(function() {
         } else if (minesweeperObject.gameInProgress === true) {
             var parentDivId = $(this).attr('id');
             if ($(this).contents().hasClass("flag") === false && minesweeperObject.flagButtonClicked === false) {
-                if ($(this).contents().hasClass("0") === true){
+                if ($(this).contents().hasClass("0") === true) {
                     thisId = $(this).attr('id');
                     blankChain(thisId)
                 }
@@ -59,15 +59,15 @@ $(".square").click(function() {
                 } else if ($(this).contents().attr('class') === "bomb") {
                     minesweeperObject.gameInProgress = false;
                     minesweeperObject.gameEnded = true;
-                        $(".bomb").parent().css({
-                            "height": "50",
+                    $(".bomb").parent().css({
+                        "height": "50",
                         "width": "50",
                         "border": "0px"
-                        });
-                        $(".bomb").css({
-                            "height": "47",
-                            "width": "47",
-                            "border": "1.5px solid #757575"
+                    });
+                    $(".bomb").css({
+                        "height": "47",
+                        "width": "47",
+                        "border": "1.5px solid #757575"
                     });
                     $(".bomb").show();
                 }
@@ -108,8 +108,8 @@ function tileImagePicker(mineTileCounter, i) {
     if (mineTileCounter === 0) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/8/80/Minesweeper_0.svg"></img>`);
         if (minesweeperObject.bombButtonClicked === true) {
-            if(i !== "10" && i !== "20" && i !== "30" && i !== "40" && i !== "50" && i !== "60" && i !== "70"){
-            minesweeperObject.blankArray.push("#s" + i);
+            if (i !== "10" && i !== "20" && i !== "30" && i !== "40" && i !== "50" && i !== "60" && i !== "70") {
+                minesweeperObject.blankArray.push("#s" + i);
             }
         }
         //$("#s" + i).contents().hide();
@@ -142,9 +142,9 @@ function tileImagePicker(mineTileCounter, i) {
 
 function plantMines() {
     var i = 0;
-    while (i < 15) {
-        var xCoor = (Math.floor((Math.random() * 7) + 1) * 10);
-        var yCoor = (Math.floor((Math.random() * 8) + 1));
+    while (i < 20) {
+        var xCoor = (Math.floor((Math.random() * 10)) * 10);
+        var yCoor = (Math.floor((Math.random() * 10)));
         var xyCoor = Number(xCoor + yCoor);
         if ($("#s" + xyCoor).contents().attr('class') === "bomb") {
             i = i - 1;
@@ -159,8 +159,8 @@ function plantMines() {
 }
 
 function boardClear() {
-    var i = 0;
-    while (i < 90) {
+    var i = -1;
+    while (i < 100) {
         $("#s" + i).empty();
         i = i + 1;
         $("#s" + i).css({
@@ -175,49 +175,102 @@ function boardClear() {
 }
 
 function boardPopulate() {
-    var i = 1;
-    while (i < 90) {
+    var i = 0;
+    while (i < 100) {
         if ($("#s" + i).contents().attr('class') !== "bomb") {
             var mineFind = i;
             var mineTileCounter = 0;
-            mineFind = mineFind - 11;
-            if ($("#s" + mineFind).contents().attr('class') === "bomb") {
-                mineTileCounter = mineTileCounter + 1;
-            }
-            mineFind = i;
-            mineFind = mineFind - 10;
-            if ($("#s" + mineFind).contents().attr('class') === "bomb") {
-                mineTileCounter = mineTileCounter + 1;
-            }
-            mineFind = i;
-            mineFind = mineFind - 9;
-            if ($("#s" + mineFind).contents().attr('class') === "bomb") {
-                mineTileCounter = mineTileCounter + 1;
-            }
-            mineFind = i;
-            mineFind = mineFind - 1;
-            if ($("#s" + mineFind).contents().attr('class') === "bomb") {
-                mineTileCounter = mineTileCounter + 1;
-            }
-            mineFind = i;
-            mineFind = mineFind + 1;
-            if ($("#s" + mineFind).contents().attr('class') === "bomb") {
-                mineTileCounter = mineTileCounter + 1;
-            }
-            mineFind = i;
-            mineFind = mineFind + 9;
-            if ($("#s" + mineFind).contents().attr('class') === "bomb") {
-                mineTileCounter = mineTileCounter + 1;
-            }
-            mineFind = i;
-            mineFind = mineFind + 10;
-            if ($("#s" + mineFind).contents().attr('class') === "bomb") {
-                mineTileCounter = mineTileCounter + 1;
-            }
-            mineFind = i;
-            mineFind = mineFind + 11;
-            if ($("#s" + mineFind).contents().attr('class') === "bomb") {
-                mineTileCounter = mineTileCounter + 1;
+            //the n%10 === X statements are to prevent left and right border tiles from miscounting the # of mines they border
+            if (i % 10 === 0) {
+                mineFind = mineFind - 10;
+                if ($("#s" + mineFind).contents().attr('class') === "bomb") {
+                    mineTileCounter = mineTileCounter + 1;
+                }
+                mineFind = i;
+                mineFind = mineFind - 9;
+                if ($("#s" + mineFind).contents().attr('class') === "bomb") {
+                    mineTileCounter = mineTileCounter + 1;
+                }
+                mineFind = i;
+                mineFind = mineFind + 1;
+                if ($("#s" + mineFind).contents().attr('class') === "bomb") {
+                    mineTileCounter = mineTileCounter + 1;
+                }
+                mineFind = i;
+                mineFind = mineFind + 10;
+                if ($("#s" + mineFind).contents().attr('class') === "bomb") {
+                    mineTileCounter = mineTileCounter + 1;
+                }
+                mineFind = i;
+                mineFind = mineFind + 11;
+                if ($("#s" + mineFind).contents().attr('class') === "bomb") {
+                    mineTileCounter = mineTileCounter + 1;
+                }
+            } else if (i % 10 === 9) {
+                mineFind = mineFind - 11;
+                if ($("#s" + mineFind).contents().attr('class') === "bomb") {
+                    mineTileCounter = mineTileCounter + 1;
+                }
+                mineFind = i;
+                mineFind = mineFind - 10;
+                if ($("#s" + mineFind).contents().attr('class') === "bomb") {
+                    mineTileCounter = mineTileCounter + 1;
+                }
+                mineFind = i;
+                mineFind = mineFind - 1;
+                if ($("#s" + mineFind).contents().attr('class') === "bomb") {
+                    mineTileCounter = mineTileCounter + 1;
+                }
+                mineFind = i;
+                mineFind = mineFind + 9;
+                if ($("#s" + mineFind).contents().attr('class') === "bomb") {
+                    mineTileCounter = mineTileCounter + 1;
+                }
+                mineFind = i;
+                mineFind = mineFind + 10;
+                if ($("#s" + mineFind).contents().attr('class') === "bomb") {
+                    mineTileCounter = mineTileCounter + 1;
+                }
+            } else {
+                mineFind = mineFind - 11;
+                if ($("#s" + mineFind).contents().attr('class') === "bomb") {
+                    mineTileCounter = mineTileCounter + 1;
+                }
+                mineFind = i;
+                mineFind = mineFind - 10;
+                if ($("#s" + mineFind).contents().attr('class') === "bomb") {
+                    mineTileCounter = mineTileCounter + 1;
+                }
+                mineFind = i;
+                mineFind = mineFind - 9;
+                if ($("#s" + mineFind).contents().attr('class') === "bomb") {
+                    mineTileCounter = mineTileCounter + 1;
+                }
+                mineFind = i;
+                mineFind = mineFind - 1;
+                if ($("#s" + mineFind).contents().attr('class') === "bomb") {
+                    mineTileCounter = mineTileCounter + 1;
+                }
+                mineFind = i;
+                mineFind = mineFind + 1;
+                if ($("#s" + mineFind).contents().attr('class') === "bomb") {
+                    mineTileCounter = mineTileCounter + 1;
+                }
+                mineFind = i;
+                mineFind = mineFind + 9;
+                if ($("#s" + mineFind).contents().attr('class') === "bomb") {
+                    mineTileCounter = mineTileCounter + 1;
+                }
+                mineFind = i;
+                mineFind = mineFind + 10;
+                if ($("#s" + mineFind).contents().attr('class') === "bomb") {
+                    mineTileCounter = mineTileCounter + 1;
+                }
+                mineFind = i;
+                mineFind = mineFind + 11;
+                if ($("#s" + mineFind).contents().attr('class') === "bomb") {
+                    mineTileCounter = mineTileCounter + 1;
+                }
             }
             tileImagePicker(mineTileCounter, i);
         }
@@ -243,54 +296,56 @@ function boardPopulate() {
         }
     }
 }
-function blankChain(thisId){
+
+function blankChain(thisId) {
     thisId = thisId.substring(1)
-    thisId = thisId-11
+    thisId = thisId - 11
     reveal(thisId)
-    thisId = thisId+10
+    thisId = thisId + 10
     reveal(thisId)
-    thisId = thisId+10
+    thisId = thisId + 10
     reveal(thisId)
-    thisId = thisId+1
+    thisId = thisId + 1
     reveal(thisId)
-    thisId = thisId+1
+    thisId = thisId + 1
     reveal(thisId)
-    thisId = thisId-10
+    thisId = thisId - 10
     reveal(thisId)
-    thisId = thisId-10
+    thisId = thisId - 10
     reveal(thisId)
-    thisId = thisId-1
+    thisId = thisId - 1
     reveal(thisId)
 }
-function reveal(thisId){
-    if($("#s"+thisId).contents().length > 1){
+
+function reveal(thisId) {
+    if ($("#s" + thisId).contents().length > 1) {
         //this line stops code from runnng if flag present
     } else {
-        $("#s"+thisId).contents().show();
-    $("#s"+thisId).css({
-        "height": "50",
-        "width": "50",
-        "border": "0px"
-    });
+        $("#s" + thisId).contents().show();
+        $("#s" + thisId).css({
+            "height": "50",
+            "width": "50",
+            "border": "0px"
+        });
     }
-    
+
 }
-function mineDuplicateDelete(){
-    var i = 1;
-    while(i < 90){
-        if ($("#s"+i).contents().attr('class') === "bomb") {
+
+function mineDuplicateDelete() {
+    var i = 0;
+    while (i < 100) {
+        if ($("#s" + i).contents().attr('class') === "bomb") {
             $("#s" + i).empty();
             $("#s" + i).append(`<img class="bomb" id=${i} src="https://i.imgur.com/MpG5ARn.png"></img>`);
             $(".bomb").hide();
-            minesweeperObject.minesFound = minesweeperObject.minesFound+1
+            minesweeperObject.minesFound = minesweeperObject.minesFound + 1
         }
-        i = i+1;
-    }  
-    if(minesweeperObject.minesFound > 9){
-        minesweeperObject.minesFound = "0"+minesweeperObject.minesFound
+        i = i + 1;
     }
-    else{
-        minesweeperObject.minesFound = "00"+minesweeperObject.minesFound
+    if (minesweeperObject.minesFound > 9) {
+        minesweeperObject.minesFound = "0" + minesweeperObject.minesFound
+    } else {
+        minesweeperObject.minesFound = "00" + minesweeperObject.minesFound
     }
     $("#flagCounter").text(minesweeperObject.minesFound);
 }
@@ -298,67 +353,58 @@ function mineDuplicateDelete(){
 
 
 
+function flagCounterUpdateAdd() {
+    var flagCounterVal = Number($("#flagCounter").text());
+    flagCounterVal = flagCounterVal - 1;
+    if (flagCounterVal < 100 && flagCounterVal > 9) {
+        flagCounterVal = "0" + flagCounterVal
+        $("#flagCounter").text(flagCounterVal);
+    } else if (flagCounterVal < 10 && flagCounterVal > 0) {
+        flagCounterVal = "00" + flagCounterVal
+        $("#flagCounter").text(flagCounterVal);
+    } else if (flagCounterVal === 0) {
+        $("#flagCounter").text("000");
+        isMinefieldCleared()
+    } else if (flagCounterVal > -10 && flagCounterVal < 1) {
+        flagCounterVal = flagCounterVal * (-1);
+        flagCounterVal = "-0" + flagCounterVal
+        $("#flagCounter").text(flagCounterVal);
+    } else if (flagCounterVal > -100 && flagCounterVal < -9) {
+        $("#flagCounter").text(flagCounterVal);
+    }
+}
 
-function flagCounterUpdateAdd(){
+function flagCounterUpdateSubtract() {
     var flagCounterVal = Number($("#flagCounter").text());
-            flagCounterVal = flagCounterVal -1;
-            if(flagCounterVal < 100 && flagCounterVal > 9){
-                flagCounterVal = "0"+flagCounterVal
-                $("#flagCounter").text(flagCounterVal);
-            }
-            else if(flagCounterVal < 10 && flagCounterVal > 0){
-                flagCounterVal = "00"+flagCounterVal
-                $("#flagCounter").text(flagCounterVal);
-            }
-            else if(flagCounterVal === 0){
-                $("#flagCounter").text("000");
-                isMinefieldCleared()
-            }
-            else if(flagCounterVal > -10 && flagCounterVal < 1 ){
-                flagCounterVal = flagCounterVal*(-1);
-                flagCounterVal = "-0"+flagCounterVal
-                $("#flagCounter").text(flagCounterVal);
-            }
-            else if(flagCounterVal > -100 && flagCounterVal < -9){
-                $("#flagCounter").text(flagCounterVal);
-            }
+    flagCounterVal = flagCounterVal + 1;
+    if (flagCounterVal < 100 && flagCounterVal > 9) {
+        flagCounterVal = "0" + flagCounterVal
+        $("#flagCounter").text(flagCounterVal);
+    } else if (flagCounterVal < 10 && flagCounterVal > 0) {
+        flagCounterVal = "00" + flagCounterVal
+        $("#flagCounter").text(flagCounterVal);
+    } else if (flagCounterVal === 0) {
+        $("#flagCounter").text("000");
+        isMinefieldCleared()
+    } else if (flagCounterVal > -10 && flagCounterVal < 1) {
+        flagCounterVal = flagCounterVal * (-1);
+        flagCounterVal = "-0" + flagCounterVal
+        $("#flagCounter").text(flagCounterVal);
+    } else if (flagCounterVal > -100 && flagCounterVal < -9) {
+        $("#flagCounter").text(flagCounterVal);
+    }
 }
-function flagCounterUpdateSubtract(){
-    var flagCounterVal = Number($("#flagCounter").text());
-            flagCounterVal = flagCounterVal +1;
-            if(flagCounterVal < 100 && flagCounterVal > 9){
-                flagCounterVal = "0"+flagCounterVal
-                $("#flagCounter").text(flagCounterVal);
-            }
-            else if(flagCounterVal < 10 && flagCounterVal > 0){
-                flagCounterVal = "00"+flagCounterVal
-                $("#flagCounter").text(flagCounterVal);
-            }
-            else if(flagCounterVal === 0){
-                $("#flagCounter").text("000");
-                isMinefieldCleared()
-            }
-            else if(flagCounterVal > -10 && flagCounterVal < 1 ){
-                flagCounterVal = flagCounterVal*(-1);
-                flagCounterVal = "-0"+flagCounterVal
-                $("#flagCounter").text(flagCounterVal);
-            }
-            else if(flagCounterVal > -100 && flagCounterVal < -9){
-                $("#flagCounter").text(flagCounterVal);
-            }
-            
-}
-function isMinefieldCleared(){
+function isMinefieldCleared() {
     var flaggedMines = 0
-        var i = 0
-        while(i < 90){
-            i = i+1;
-            if($("#s"+i).contents().length === 2){
-                flaggedMines = flaggedMines+1;
-                if(flaggedMines === (minesweeperObject.minesFound-1)){
-                    console.log("won")
-                    break;
-                }
+    var i = 0
+    while (i < 100) {
+        i = i + 1;
+        if ($("#s" + i).contents().length === 2) {
+            flaggedMines = flaggedMines + 1;
+            if (flaggedMines === (minesweeperObject.minesFound - 1)) {
+                console.log("won")
+                break;
             }
         }
+    }
 }
