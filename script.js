@@ -17,11 +17,12 @@ $("#gameStart").click(function() {
     minesweeperObject.minesFound = 0,
     boardClear();
     plantMines();
-
+    $("#gameStatus").text("New Game");
 });
 $(".square").click(function() {
     var parentDivId = $(this).attr('id');
     if (minesweeperObject.gameStarted === true && minesweeperObject.gameEnded === false) {
+        $("#gameStatus").text("In Progress");
         minesweeperObject.gameInProgress = true;
         if ($(this).contents().hasClass("flag") === true) {
             flagCounterUpdateSubtract()
@@ -70,6 +71,7 @@ $(".square").click(function() {
                         "border": "1.5px solid #757575"
                     });
                     $(".bomb").show();
+                    $("#gameStatus").text("Game Lost!");
                 }
             }
         }
@@ -112,52 +114,38 @@ function tileImagePicker(mineTileCounter, i) {
                 minesweeperObject.blankArray.push("#s" + i);
             }
         }
-        //$("#s" + i).contents().hide();
     } else if (mineTileCounter === 1) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/c/ca/Minesweeper_1.svg"></img>`);
-        //$("#s" + i).contents().hide();
     } else if (mineTileCounter === 2) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/4/44/Minesweeper_2.svg"></img>`);
-        //$("#s" + i).contents().hide();
     } else if (mineTileCounter === 3) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/0/08/Minesweeper_3.svg"></img>`);
-       // $("#s" + i).contents().hide();
     } else if (mineTileCounter === 4) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Minesweeper_4.svg"></img>`);
-        //$("#s" + i).contents().hide();
     } else if (mineTileCounter === 5) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/4/46/Minesweeper_5.svg"></img>`);
-        //$("#s" + i).contents().hide();
     } else if (mineTileCounter === 6) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Minesweeper_6.svg"></img>`);
-        //$("#s" + i).contents().hide();
     } else if (mineTileCounter === 7) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/5/56/Minesweeper_7.svg"></img>`);
-        //$("#s" + i).contents().hide();
     } else if (mineTileCounter === 8) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Minesweeper_8.svg"></img>`);
-        //$("#s" + i).contents().hide();
+        
     };
+    $(".numeberTile").hide();
 }
 
 function plantMines() {
     var i = 0;
-    while (i < 40) {
-        var xCoor = (Math.floor((Math.random() * 16)+1));
-        if(xCoor < 10){
-            xCoor = "0"+xCoor;
-        }
-        var yCoor = (Math.floor((Math.random() * 16)+1));
-        if(yCoor < 10){
-            yCoor = "0"+yCoor;
-        }
-        var xyCoor = xCoor.toString() + yCoor.toString();
-        console.log(xyCoor)
+    while (i < 20) {
+        var xCoor = (Math.floor((Math.random() * 10)) * 10);
+        var yCoor = (Math.floor((Math.random() * 10)));
+        var xyCoor = Number(xCoor + yCoor);
         if ($("#s" + xyCoor).contents().attr('class') === "bomb") {
             i = i - 1;
         } else {
             $("#s" + xyCoor).append(`<img class="bomb" id=${xyCoor} src="https://i.imgur.com/MpG5ARn.png"></img>`);
-            //$(".bomb").hide();
+            $(".bomb").hide();
         }
         i = i + 1;
     }
@@ -166,29 +154,11 @@ function plantMines() {
 }
 
 function boardClear() {
-    var i = 1;
-    while (i < 17) {
-        var a = 0
-        while(a < 17){
-            if(a < 10){
-                var b = "0"+a;
-            }
-            else{
-                var b = a
-            }
-            b = b.toString();
-            if(i < 10){
-                var c = "0"+i
-            }
-            else{
-                var c = i
-            }
-            c = c.toString();
-            a = a+1
-            var squareId = c+b;
-            console.log(squareId)
-             $("#s"+squareId).empty();
-            $("#s"+squareId).css({
+    var i = -1;
+    while (i < 100) {
+        $("#s" + i).empty();
+        i = i + 1;
+        $("#s" + i).css({
             "height": "40",
             "width": "40",
             "border-top": "5px solid #FBFAF9",
@@ -196,8 +166,6 @@ function boardClear() {
             "border-bottom": "5px solid #949494",
             "border-right": "5px solid #949494"
         })
-        }
-        i = i + 1;
     }
 }
 
@@ -381,9 +349,7 @@ function reveal(thisId) {
             "border": "0px"
         });
     }
-
 }
-
 function mineDuplicateDelete() {
     var i = 0;
     while (i < 100) {
@@ -402,10 +368,6 @@ function mineDuplicateDelete() {
     }
     $("#flagCounter").text(minesweeperObject.minesFound);
 }
-
-
-
-
 function flagCounterUpdateAdd() {
     var flagCounterVal = Number($("#flagCounter").text());
     flagCounterVal = flagCounterVal - 1;
@@ -455,7 +417,8 @@ function isMinefieldCleared() {
         if ($("#s" + i).contents().length === 2) {
             flaggedMines = flaggedMines + 1;
             if (flaggedMines === (minesweeperObject.minesFound - 1)) {
-                console.log("won")
+                $("#gameStatus").text("Game Won!");
+                minesweeperObject.gameEnded = true;
                 break;
             }
         }
