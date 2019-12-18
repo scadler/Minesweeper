@@ -60,6 +60,10 @@ $(".square").click(function() {
                 } else if ($(this).contents().attr('class') === "bomb") {
                     minesweeperObject.gameInProgress = false;
                     minesweeperObject.gameEnded = true;
+                    //https://i.imgur.com/MpG5ARn.png
+                    var thisId = $(this).attr('id')
+                    $("#"+parentDivId).empty();
+                    $("#"+parentDivId).append(`<img class="bomb" id=${thisId} src="https://i.imgur.com/MpG5ARn.png"></img>`)
                     $(".bomb").parent().css({
                         "height": "50",
                         "width": "50",
@@ -71,8 +75,14 @@ $(".square").click(function() {
                         "border": "1.5px solid #757575"
                     });
                     $(".bomb").show();
+                    while (i < 100) {
+                    if($("s"+i).contents().hasClass("flag") === true && $("s"+i).contents().hasClass("bomb") === true){
+                        $("s"+i).empty();
+
+                    }
                     $("#gameStatus").text("Game Lost!");
                 }
+            }
             }
         }
     }
@@ -144,7 +154,8 @@ function plantMines() {
         if ($("#s" + xyCoor).contents().attr('class') === "bomb") {
             i = i - 1;
         } else {
-            $("#s" + xyCoor).append(`<img class="bomb" id=${xyCoor} src="https://i.imgur.com/MpG5ARn.png"></img>`);
+            //https://i.imgur.com/MpG5ARn.png
+            $("#s" + xyCoor).append(`<img class="bomb" id=${xyCoor} src="https://i.imgur.com/6fkblDN.jpg"></img>`);
             $(".bomb").hide();
         }
         i = i + 1;
@@ -355,7 +366,7 @@ function mineDuplicateDelete() {
     while (i < 100) {
         if ($("#s" + i).contents().attr('class') === "bomb") {
             $("#s" + i).empty();
-            $("#s" + i).append(`<img class="bomb" id=${i} src="https://i.imgur.com/MpG5ARn.png"></img>`);
+            $("#s" + i).append(`<img class="bomb" id=${i} src="https://i.imgur.com/6fkblDN.jpg/"></img>`);
             $(".bomb").hide();
             minesweeperObject.minesFound = minesweeperObject.minesFound + 1
         }
