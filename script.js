@@ -34,7 +34,7 @@ $(".square").click(function() {
                 "border-bottom": "5px solid #949494",
                 "border-right": "5px solid #949494"
             })
-        } else if (minesweeperObject.flagButtonClicked === true && $(this).contents().hasClass("flag") === false && $(this).contents().hasClass("numberTile") === false) {
+        } else if (minesweeperObject.flagButtonClicked === true && $(this).contents().hasClass("flag") === false) {
             flagCounterUpdateAdd()
             $("#" + parentDivId).css({
                 "height": "50",
@@ -112,31 +112,31 @@ function tileImagePicker(mineTileCounter, i) {
                 minesweeperObject.blankArray.push("#s" + i);
             }
         }
-        //$("#s" + i).contents().hide();
+        $("#s" + i).contents().hide();
     } else if (mineTileCounter === 1) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/c/ca/Minesweeper_1.svg"></img>`);
-        //$("#s" + i).contents().hide();
+        $("#s" + i).contents().hide();
     } else if (mineTileCounter === 2) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/4/44/Minesweeper_2.svg"></img>`);
-        //$("#s" + i).contents().hide();
+        $("#s" + i).contents().hide();
     } else if (mineTileCounter === 3) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/0/08/Minesweeper_3.svg"></img>`);
-        //$("#s" + i).contents().hide();
+        $("#s" + i).contents().hide();
     } else if (mineTileCounter === 4) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Minesweeper_4.svg"></img>`);
-        //$("#s" + i).contents().hide();
+        $("#s" + i).contents().hide();
     } else if (mineTileCounter === 5) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/4/46/Minesweeper_5.svg"></img>`);
-        //$("#s" + i).contents().hide();
+        $("#s" + i).contents().hide();
     } else if (mineTileCounter === 6) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Minesweeper_6.svg"></img>`);
-        //$("#s" + i).contents().hide();
+        $("#s" + i).contents().hide();
     } else if (mineTileCounter === 7) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/5/56/Minesweeper_7.svg"></img>`);
-        //$("#s" + i).contents().hide();
+        $("#s" + i).contents().hide();
     } else if (mineTileCounter === 8) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Minesweeper_8.svg"></img>`);
-        //$("#s" + i).contents().hide();
+        $("#s" + i).contents().hide();
     };
 }
 
@@ -298,6 +298,31 @@ function boardPopulate() {
 }
 
 function blankChain(thisId) {
+    if(thisId.substring(1) % 10 === 0){
+        thisId = thisId.substring(1)
+    thisId = thisId - 10
+    reveal(thisId)
+    thisId = thisId + 1
+    reveal(thisId)
+    thisId = thisId + 10
+    reveal(thisId)
+    thisId = thisId + 10
+    reveal(thisId)
+    thisId = thisId - 1
+    reveal(thisId)
+    } else if (thisId.substring(1) % 10 === 9){
+        thisId = thisId.substring(1)
+    thisId = thisId - 10
+    reveal(thisId)
+    thisId = thisId -1
+    reveal(thisId)
+    thisId = thisId + 10
+    reveal(thisId)
+    thisId = thisId + 10
+    reveal(thisId)
+    thisId = thisId + 1
+    reveal(thisId)
+    } else{
     thisId = thisId.substring(1)
     thisId = thisId - 11
     reveal(thisId)
@@ -315,6 +340,7 @@ function blankChain(thisId) {
     reveal(thisId)
     thisId = thisId - 1
     reveal(thisId)
+    }
 }
 
 function reveal(thisId) {
