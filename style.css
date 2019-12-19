@@ -1,132 +1,148 @@
-html{
-    background-color:#BDBDBD;
-        margin-right: 30px;
+html {
+    background-color: #BDBDBD;
+    margin-right: 30px;
 }
+
 #board {
-	width:500px;
-	height:500px;
-	border-top:5px solid #949494;
-    border-left:5px solid #949494;
-    border-bottom:5px solid #FBFAF9;
-    border-right:5px solid #FBFAF9;
+    width: 500px;
+    height: 500px;
+    border-top: 5px solid #949494;
+    border-left: 5px solid #949494;
+    border-bottom: 5px solid #FBFAF9;
+    border-right: 5px solid #FBFAF9;
     margin-left: 10px;
 }
-#bottomDiv{
-    width:500px;
-	height:50px;
+
+#bottomDiv {
+    width: 500px;
+    height: 50px;
     margin-left: 15px;
     margin-top: 10px;
 }
+
 .square {
-	width:40px;
-	height:40px;
-	float:left;
-    border-top:5px solid #FBFAF9;
-    border-left:5px solid #FBFAF9;
-    border-bottom:5px solid #949494;
-    border-right:5px solid #949494;
-    background-color:#BDBDBD;
-}
-.bomb {
-    width:40px;
-    height:40px;
-}
-#gameStart{
+    width: 40px;
+    height: 40px;
+    float: left;
+    border-top: 5px solid #FBFAF9;
+    border-left: 5px solid #FBFAF9;
+    border-bottom: 5px solid #949494;
+    border-right: 5px solid #949494;
     background-color: #BDBDBD;
-    height:50px;
-    width:300px;
-    padding:1px;
-    border-top:5px solid #FBFAF9;
-    border-left:5px solid #FBFAF9;
-    border-bottom:5px solid #949494;
-    border-right:5px solid #949494;
+}
+
+.bomb {
+    width: 40px;
+    height: 40px;
+}
+
+#gameStart {
+    background-color: #BDBDBD;
+    height: 50px;
+    width: 300px;
+    padding: 1px;
+    border-top: 5px solid #FBFAF9;
+    border-left: 5px solid #FBFAF9;
+    border-bottom: 5px solid #949494;
+    border-right: 5px solid #949494;
     font-family: 'VT323', monospace;
     font-size: 32px;
-    float:left;
+    float: left;
 }
-.numberTile{
-    width:50px;
-    height:50px;
+
+.numberTile {
+    width: 50px;
+    height: 50px;
 }
-.flag{
-    width:50px;
-    height:50px;
+
+.flag {
+    width: 50px;
+    height: 50px;
 }
-#flagButtonImg{
-    float:left;
-    height:50px;
-    width:50px;
+
+#flagButtonImg {
+    float: left;
+    height: 50px;
+    width: 50px;
 }
-#flagButtonIndicator{
-    float:left;
-    height:40px;
-    width:40px;
-    border-top:5px solid #FBFAF9;
-    border-left:5px solid #FBFAF9;
-    border-bottom:5px solid #949494;
-    border-right:5px solid #949494;
+
+#flagButtonIndicator {
+    float: left;
+    height: 40px;
+    width: 40px;
+    border-top: 5px solid #FBFAF9;
+    border-left: 5px solid #FBFAF9;
+    border-bottom: 5px solid #949494;
+    border-right: 5px solid #949494;
     background-color: #FF6633
 }
-#bombButtonImg{
-    float:left;
-    height:40px;
-    width:40px;
-    border-top:5px solid #FBFAF9;
-    border-left:5px solid #FBFAF9;
-    border-bottom:5px solid #949494;
-    border-right:5px solid #949494;
+
+#bombButtonImg {
+    float: left;
+    height: 40px;
+    width: 40px;
+    border-top: 5px solid #FBFAF9;
+    border-left: 5px solid #FBFAF9;
+    border-bottom: 5px solid #949494;
+    border-right: 5px solid #949494;
 }
-#bombButtonIndicator{
-    float:left;
-    height:40px;
-    width:40px;
-    border-top:5px solid #FBFAF9;
-    border-left:5px solid #FBFAF9;
-    border-bottom:5px solid #949494;
-    border-right:5px solid #949494;
+
+#bombButtonIndicator {
+    float: left;
+    height: 40px;
+    width: 40px;
+    border-top: 5px solid #FBFAF9;
+    border-left: 5px solid #FBFAF9;
+    border-bottom: 5px solid #949494;
+    border-right: 5px solid #949494;
     background-color: #FF6633;
 }
-#flagCounter{   
+
+#flagCounter {
     font-family: 'Segment7Standard';
     font-weight: normal;
     font-style: italic;
     font-size: 40px;
     color: #ff0000;
 }
-#flagSevenSegment{
+
+#flagSevenSegment {
     margin-left: 10px;
     display: flex;
     justify-content: center;
     background-color: #000000;
-    height:40px;
-    width:75px;
-    border-top:5px solid #949494;
-    border-left:5px solid #949494;
-    border-bottom:5px solid #FBFAF9;
-    border-right:5px solid #FBFAF9;
+    height: 40px;
+    width: 75px;
+    border-top: 5px solid #949494;
+    border-left: 5px solid #949494;
+    border-bottom: 5px solid #FBFAF9;
+    border-right: 5px solid #FBFAF9;
 }
-#gameStatusDiv{
+
+#gameStatusDiv {
     display: flex;
     justify-content: center;
     background-color: #000000;
-    height:40px;
-    width:190px;
-    border-top:5px solid #949494;
-    border-left:5px solid #949494;
-    border-bottom:5px solid #FBFAF9;
-    border-right:5px solid #FBFAF9;
+    height: 40px;
+    width: 190px;
+    border-top: 5px solid #949494;
+    border-left: 5px solid #949494;
+    border-bottom: 5px solid #FBFAF9;
+    border-right: 5px solid #FBFAF9;
     margin-left: 10px;
 }
-#gameStatus{
+
+#gameStatus {
     font-family: 'VT323', monospace;
     font-size: 40px;
-    float:left;
+    float: left;
     color: #ffffff;
 }
-#pageTop{
+
+#pageTop {
     display: flex;
     justify-content: flex-start;
     height: 50px;
     width: 500px;
-    padding-bottom:10px;
+    padding-bottom: 10px;
 }

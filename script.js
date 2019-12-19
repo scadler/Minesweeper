@@ -8,6 +8,7 @@ var minesweeperObject = {
     blankArray: [],
     minesFound: 0,
 };
+
 $("#gameStart").click(function() {
     minesweeperObject.gameInProgress = false;
     minesweeperObject.gameStarted = true;
@@ -15,10 +16,11 @@ $("#gameStart").click(function() {
     minesweeperObject.foundBlank = false;
     minesweeperObject.blankArray = [];
     minesweeperObject.minesFound = 0,
-    boardClear();
+        boardClear();
     plantMines();
     $("#gameStatus").text("New Game");
 });
+
 $(".square").click(function() {
     var parentDivId = $(this).attr('id');
     if (minesweeperObject.gameStarted === true && minesweeperObject.gameEnded === false) {
@@ -58,11 +60,12 @@ $(".square").click(function() {
                     });
                     $("#" + $(this).contents().attr('id')).show();
                 } else if ($(this).contents().attr('class') === "bomb") {
+                    $("#gameStatus").text("Game Lost!");
                     minesweeperObject.gameInProgress = false;
                     minesweeperObject.gameEnded = true;
                     var thisId = $(this).attr('id')
-                    $("#"+parentDivId).empty();
-                    $("#"+parentDivId).append(`<img class="bomb" id=${thisId} src="https://i.imgur.com/MpG5ARn.png"></img>`)
+                    $("#" + parentDivId).empty();
+                    $("#" + parentDivId).append(`<img class="bomb" id=${thisId} src="https://i.imgur.com/MpG5ARn.png"></img>`)
                     $(".bomb").parent().css({
                         "height": "50",
                         "width": "50",
@@ -71,25 +74,21 @@ $(".square").click(function() {
                     $(".bomb").css({
                         "height": "47",
                         "width": "47",
-                        "border": "1.5px solid #757575"
+                        "border": "1.45px solid #757575"
                     });
-                    $("#gameStatus").text("Game Lost!");
                     var i = 0;
                     while (i < 100) {
-                    if($("#s"+i).contents().hasClass("flag") === true && $("#s"+i).contents().hasClass("bomb") === true){
-                        // $("#s"+i).empty();
-                        // $("#s"+i).append(`<img class="flag" id="f${parentDivId}" src="https://i.imgur.com/v0YAYw9.jpg/"></img>`);
+                        if ($("#s" + i).contents().hasClass("flag") === false && $("#s" + i).contents().hasClass("bomb") === true) {
+                            $("#" + i).show();
+                        }
+                        i = i + 1;
                     }
-                    else{
-                        $("#"+i).show();
-                    }
-                    i=i+1;
                 }
             }
-           }
         }
     }
 });
+
 $("#flagButtonImg").click(function() {
     minesweeperObject.flagButtonClicked = !minesweeperObject.flagButtonClicked
     if (minesweeperObject.gameStarted === true && minesweeperObject.gameEnded === false) {
@@ -104,6 +103,7 @@ $("#flagButtonImg").click(function() {
         }
     }
 });
+
 $("#bombButtonImg").click(function() {
     minesweeperObject.bombButtonClicked = !minesweeperObject.bombButtonClicked
     if (minesweeperObject.gameStarted === true && minesweeperObject.gameEnded === false) {
@@ -143,9 +143,9 @@ function tileImagePicker(mineTileCounter, i) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/5/56/Minesweeper_7.svg"></img>`);
     } else if (mineTileCounter === 8) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Minesweeper_8.svg"></img>`);
-        
+
     };
-    $("#s"+i).contents().hide();
+    $("#s" + i).contents().hide();
 }
 
 function plantMines() {
@@ -306,48 +306,48 @@ function boardPopulate() {
 }
 
 function blankChain(thisId) {
-    if(thisId.substring(1) % 10 === 0){
+    if (thisId.substring(1) % 10 === 0) {
         thisId = thisId.substring(1)
-    thisId = thisId - 10
-    reveal(thisId)
-    thisId = thisId + 1
-    reveal(thisId)
-    thisId = thisId + 10
-    reveal(thisId)
-    thisId = thisId + 10
-    reveal(thisId)
-    thisId = thisId - 1
-    reveal(thisId)
-    } else if (thisId.substring(1) % 10 === 9){
+        thisId = thisId - 10
+        reveal(thisId)
+        thisId = thisId + 1
+        reveal(thisId)
+        thisId = thisId + 10
+        reveal(thisId)
+        thisId = thisId + 10
+        reveal(thisId)
+        thisId = thisId - 1
+        reveal(thisId)
+    } else if (thisId.substring(1) % 10 === 9) {
         thisId = thisId.substring(1)
-    thisId = thisId - 10
-    reveal(thisId)
-    thisId = thisId -1
-    reveal(thisId)
-    thisId = thisId + 10
-    reveal(thisId)
-    thisId = thisId + 10
-    reveal(thisId)
-    thisId = thisId + 1
-    reveal(thisId)
-    } else{
-    thisId = thisId.substring(1)
-    thisId = thisId - 11
-    reveal(thisId)
-    thisId = thisId + 10
-    reveal(thisId)
-    thisId = thisId + 10
-    reveal(thisId)
-    thisId = thisId + 1
-    reveal(thisId)
-    thisId = thisId + 1
-    reveal(thisId)
-    thisId = thisId - 10
-    reveal(thisId)
-    thisId = thisId - 10
-    reveal(thisId)
-    thisId = thisId - 1
-    reveal(thisId)
+        thisId = thisId - 10
+        reveal(thisId)
+        thisId = thisId - 1
+        reveal(thisId)
+        thisId = thisId + 10
+        reveal(thisId)
+        thisId = thisId + 10
+        reveal(thisId)
+        thisId = thisId + 1
+        reveal(thisId)
+    } else {
+        thisId = thisId.substring(1)
+        thisId = thisId - 11
+        reveal(thisId)
+        thisId = thisId + 10
+        reveal(thisId)
+        thisId = thisId + 10
+        reveal(thisId)
+        thisId = thisId + 1
+        reveal(thisId)
+        thisId = thisId + 1
+        reveal(thisId)
+        thisId = thisId - 10
+        reveal(thisId)
+        thisId = thisId - 10
+        reveal(thisId)
+        thisId = thisId - 1
+        reveal(thisId)
     }
 }
 
@@ -363,6 +363,7 @@ function reveal(thisId) {
         });
     }
 }
+
 function mineDuplicateDelete() {
     var i = 0;
     while (i < 100) {
@@ -381,6 +382,7 @@ function mineDuplicateDelete() {
     }
     $("#flagCounter").text(minesweeperObject.minesFound);
 }
+
 function flagCounterUpdateAdd() {
     var flagCounterVal = Number($("#flagCounter").text());
     flagCounterVal = flagCounterVal - 1;
@@ -422,14 +424,19 @@ function flagCounterUpdateSubtract() {
         $("#flagCounter").text(flagCounterVal);
     }
 }
+
 function isMinefieldCleared() {
     var flaggedMines = 0
     var i = 0
+    var hiddenTiles = false;
     while (i < 100) {
         i = i + 1;
+        if ($("#s" + i).contents().is(':hidden') === true) {
+            hiddenTiles = true;
+        }
         if ($("#s" + i).contents().length === 2) {
             flaggedMines = flaggedMines + 1;
-            if (flaggedMines === (minesweeperObject.minesFound - 1)) {
+            if (flaggedMines === (minesweeperObject.minesFound - 1) && hiddenTiles === false) {
                 $("#gameStatus").text("Game Won!");
                 minesweeperObject.gameEnded = true;
                 break;
