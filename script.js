@@ -60,7 +60,6 @@ $(".square").click(function() {
                 } else if ($(this).contents().attr('class') === "bomb") {
                     minesweeperObject.gameInProgress = false;
                     minesweeperObject.gameEnded = true;
-                    //https://i.imgur.com/MpG5ARn.png
                     var thisId = $(this).attr('id')
                     $("#"+parentDivId).empty();
                     $("#"+parentDivId).append(`<img class="bomb" id=${thisId} src="https://i.imgur.com/MpG5ARn.png"></img>`)
@@ -74,16 +73,20 @@ $(".square").click(function() {
                         "width": "47",
                         "border": "1.5px solid #757575"
                     });
-                    $(".bomb").show();
-                    while (i < 100) {
-                    if($("s"+i).contents().hasClass("flag") === true && $("s"+i).contents().hasClass("bomb") === true){
-                        $("s"+i).empty();
-
-                    }
                     $("#gameStatus").text("Game Lost!");
+                    var i = 0;
+                    while (i < 100) {
+                    if($("#s"+i).contents().hasClass("flag") === true && $("#s"+i).contents().hasClass("bomb") === true){
+                        // $("#s"+i).empty();
+                        // $("#s"+i).append(`<img class="flag" id="f${parentDivId}" src="https://i.imgur.com/v0YAYw9.jpg/"></img>`);
+                    }
+                    else{
+                        $("#"+i).show();
+                    }
+                    i=i+1;
                 }
             }
-            }
+           }
         }
     }
 });
@@ -154,7 +157,6 @@ function plantMines() {
         if ($("#s" + xyCoor).contents().attr('class') === "bomb") {
             i = i - 1;
         } else {
-            //https://i.imgur.com/MpG5ARn.png
             $("#s" + xyCoor).append(`<img class="bomb" id=${xyCoor} src="https://i.imgur.com/6fkblDN.jpg"></img>`);
             $(".bomb").hide();
         }
