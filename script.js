@@ -10,6 +10,9 @@ var minesweeperObject = {
     difficulty: 20,
 };
 var difficultyCounter = 2
+$("#board").bind("contextmenu", function(e) {
+    return false;
+});
 $("#gameStart").click(function() {
     minesweeperObject.gameInProgress = false;
     minesweeperObject.gameStarted = true;
