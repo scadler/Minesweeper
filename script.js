@@ -178,7 +178,7 @@ function tileImagePicker(mineTileCounter, i) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Minesweeper_8.svg"></img>`);
 
     };
-    $("#s" + i).contents().hide();
+    //$("#s" + i).contents().hide();
 }
 
 function plantMines() {
@@ -459,12 +459,13 @@ function flagCounterUpdateSubtract() {
 }
 
 function isMinefieldCleared() {
-    var flaggedMines = 0
-    var i = 0
+    var flaggedMines = 0;
+    var i = 0;
     var hiddenTiles = false;
+    minesweeperObject.minesFound = minesweeperObject.minesFound*1;
     while (i < 100) {
         i = i + 1;
-        if ($("#s" + i).contents().is(':hidden') === true) {
+        if ($("#s" + i).contents().is(':hidden') === true && $("#s" + i).contents().hasClass("flag") === false) {
             hiddenTiles = true;
         }
         if ($("#s" + i).contents().length === 2) {
@@ -472,7 +473,7 @@ function isMinefieldCleared() {
             if (flaggedMines === (minesweeperObject.minesFound - 1) && hiddenTiles === false) {
                 $("#gameStatus").text("Game Won!");
                 minesweeperObject.gameEnded = true;
-                break;
+                i = 100;
             }
         }
     }
