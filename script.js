@@ -7,8 +7,9 @@ var minesweeperObject = {
     foundBlank: false,
     blankArray: [],
     minesFound: 0,
+    difficulty: 20,
 };
-
+var difficultyCounter = 2
 $("#gameStart").click(function() {
     minesweeperObject.gameInProgress = false;
     minesweeperObject.gameStarted = true;
@@ -20,7 +21,30 @@ $("#gameStart").click(function() {
     plantMines();
     $("#gameStatus").text("New Game");
 });
+$("#bombOptionDiv").click(function(){
+    if(difficultyCounter%4 === 0){
+        minesweeperObject.difficulty = 15;
+        $("#bombOptionDiv").empty();
+        $("#bombOptionDiv").append(`<img id="bombOption" src="https://i.imgur.com/KXcqaFL.jpg"></img>`);
+    }
+    else if(difficultyCounter%4 === 1){
+        minesweeperObject.difficulty = 20;
+        $("#bombOptionDiv").empty();
+        $("#bombOptionDiv").append(`<img id="bombOption" src="https://i.imgur.com/D7C8y6Y.jpg"></img>`);
+    }
+    else if(difficultyCounter%4 === 2){
+        minesweeperObject.difficulty = 25;
+        $("#bombOptionDiv").empty();
+        $("#bombOptionDiv").append(`<img id="bombOption" src="https://i.imgur.com/DWqBFp6.jpg"></img>`);
+    }
+    else if(difficultyCounter%4 === 3){
+        minesweeperObject.difficulty = 30;
+        $("#bombOptionDiv").empty();
+        $("#bombOptionDiv").append(`<img id="bombOption" src="https://i.imgur.com/AzNsNqS.jpg"></img>`);
 
+    }
+    difficultyCounter = difficultyCounter+1;
+});
 $(".square").click(function() {
     var parentDivId = $(this).attr('id');
     if (minesweeperObject.gameStarted === true && minesweeperObject.gameEnded === false) {
@@ -80,6 +104,15 @@ $(".square").click(function() {
                     while (i < 100) {
                         if ($("#s" + i).contents().hasClass("flag") === false && $("#s" + i).contents().hasClass("bomb") === true) {
                             $("#" + i).show();
+                        }
+                        else if($("#s" + i).contents().hasClass("flag") === true && $("#s" + i).contents().hasClass("bomb") === false) {
+                            $("#s" + i).empty()
+                            $("#s" + i).append(`<img class="bomb" id=${i} src="https://i.imgur.com/6Poeikw.jpg"></img>`)
+                            $("#"+i).css({
+                                "height": "47",
+                                "width": "47",
+                                "border": "1.45px solid #757575"
+                            });
                         }
                         i = i + 1;
                     }
@@ -150,7 +183,7 @@ function tileImagePicker(mineTileCounter, i) {
 
 function plantMines() {
     var i = 0;
-    while (i < 20) {
+    while (i < minesweeperObject.difficulty) {
         var xCoor = (Math.floor((Math.random() * 10)) * 10);
         var yCoor = (Math.floor((Math.random() * 10)));
         var xyCoor = Number(xCoor + yCoor);
