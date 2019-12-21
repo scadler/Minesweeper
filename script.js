@@ -178,7 +178,7 @@ function tileImagePicker(mineTileCounter, i) {
         $("#s" + i).append(`<img class="numberTile ${mineTileCounter}" id="tile${i}" src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Minesweeper_8.svg"></img>`);
 
     };
-    //$("#s" + i).contents().hide();
+    $("#s" + i).contents().hide();
 }
 
 function plantMines() {
